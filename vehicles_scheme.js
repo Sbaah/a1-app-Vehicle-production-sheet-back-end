@@ -1,3 +1,4 @@
+//  Sefa Baah - Acheamphour student#: 015381130
 // Setup
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
