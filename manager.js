@@ -78,14 +78,22 @@ module.exports = function(mongoDBConnectionString) {
       });
     },
 
+    // vehicleAdd: function(newItem) {
+    //   return new Promise(function(resolve, reject) {
+    //     vehicle.create(newItem, (error, item) => {
+    //       if (error) {
+    //         // Cannot add item
+    //         return reject(error.message);
+    //       }
+    //       //Added object will be returned
+    //       return resolve(item);
+    //     });
+    //   });
+    // }
     vehicleAdd: function(newItem) {
       return new Promise(function(resolve, reject) {
         vehicle.create(newItem, (error, item) => {
-          if (error) {
-            // Cannot add item
-            return reject(error.message);
-          }
-          //Added object will be returned
+          if (error) return reject(error.message);
           return resolve(item);
         });
       });

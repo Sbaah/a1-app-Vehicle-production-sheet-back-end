@@ -89,9 +89,7 @@ app.post("/api/vehicle", (req, res) => {
       res.json(data);
     })
     .catch(error => {
-      res.status(500).json({
-        message: error
-      });
+      res.status(500).json({ message: error });
     });
 });
 
