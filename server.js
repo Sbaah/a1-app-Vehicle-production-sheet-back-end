@@ -30,6 +30,26 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/index.html"));
 });
 
+// Get resources available in this web API
+app.get("/api", (req, res) => {
+  const links = [];
+  links.push({ rel: "collection", href: "/api/vehicles", methods: "GET" });
+  links.push({ rel: "collection", href: "/api/vehicle", methods: "POST" });
+  links.push({
+    rel: "collection",
+    href: "/api/vehicle/:id",
+    methods: "GET,PUT,DELETE"
+  });
+  const linkObject = {
+    apiName: "BTI 425 - Assignment 1",
+    apiDescription: "Node Webservice",
+    apiVersion: "1.0",
+    apiAuthor: "Sefa Baah - Acheamphour",
+    links: links
+  };
+  res.json(linkObject);
+});
+
 // ################################################################################
 // Request handlers for data entities (listeners)
 
