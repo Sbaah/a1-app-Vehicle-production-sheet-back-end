@@ -89,7 +89,7 @@ app.post("/api/vehicle", (req, res) => {
 //     });
 // });
 app.put("/api/vehicle/:vehicleId", (req, res) => {
-  m.carEdit(req.params.id, req.body)
+  m.vehicleEdit(req.params.id, req.body)
     .then(data => {
       res.json(data);
     })
