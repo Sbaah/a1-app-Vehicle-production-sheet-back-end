@@ -77,55 +77,32 @@ module.exports = function(mongoDBConnectionString) {
         });
       });
     },
-
-    // vehicleAdd: function(newItem) {
-    //   return new Promise(function(resolve, reject) {
-    //     vehicle.create(newItem, (error, item) => {
-    //       if (error) {
-    //         // Cannot add item
-    //         return reject(error.message);
-    //       }
-    //       //Added object will be returned
-    //       return resolve(item);
-    //     });
-    //   });
-    // }
     vehicleAdd: function(newItem) {
       return new Promise(function(resolve, reject) {
         vehicle.create(newItem, (error, item) => {
-          if (error) return reject(error.message);
+          if (error) {
+            // Cannot add item
+            return reject(error.message);
+          }
+          //Added object will be returned
           return resolve(item);
         });
       });
     },
 
-    // vehicleEdit: function (newItem) {
-    //     return new Promise(function (resolve, reject) {
-
-    //         vehicle.findByIdAndUpdate(newItem._id, newItem, {
-    //             new: true
-    //         }, (error, item) => {
-    //             if (error) {
-    //                 // Cannot edit item
-    //                 return reject(error.message);
-    //             }
-    //             // Check for an item
-    //             if (item) {
-    //                 // Edited object will be returned
-    //                 return resolve(item);
-    //             } else {
-    //                 return reject('Not found');
-    //             }
-
-    //         });
-    //     })
-    // }
     vehicleEdit: function(id, newItem) {
       return new Promise(function(resolve, reject) {
         vehicle.findByIdAndUpdate(id, newItem, { new: true }, (error, item) => {
-          if (error) return reject(error.message);
-          if (item) return resolve(item);
-          else return reject("Not found");
+          if (error) {
+            // Cannot edit item
+            return reject(error.message);
+          }
+          if (item) {
+            // Edited object will be returned
+            return resolve(item);
+          } else {
+            return reject("Not found");
+          }
         });
       });
     },
