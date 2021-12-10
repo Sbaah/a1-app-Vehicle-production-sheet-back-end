@@ -110,7 +110,7 @@ app.put('/api/vehicle/:vehicleId', (req, res) => {
 });
 
 // Delete item
-app.delete('/api/ls/:vehicleId', (req, res) => {
+app.delete('/api/vehicle/:vehicleId', (req, res) => {
   // Call the manager method
   m.vehicleDelete(req.params.vehicleId)
     .then(() => {
