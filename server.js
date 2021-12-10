@@ -100,12 +100,12 @@ app.post('/api/vehicle', (req, res) => {
 // Edit existing
 app.put('/api/vehicle/:vehicleId', (req, res) => {
   // Call the manager method
-  m.vehicleEdit(req.params.id, req.body)
+  m.vehicleEdit(req.params.vehicleId, req.body)
     .then((data) => {
       res.json(data);
     })
-    .catch(() => {
-      res.status(404).json({ message: 'Resource not found' });
+    .catch((error) => {
+      res.status(404).json({ message: 'Resource not found', error });
     });
 });
 
