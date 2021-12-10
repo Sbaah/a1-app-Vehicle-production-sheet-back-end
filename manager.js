@@ -1,37 +1,36 @@
 //  Sefa Baah - Acheamphour student#: 015381130
 // Data service operations setup
 
-const mongoose = require("mongoose");
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useFindAndModify", false);
-mongoose.set("useCreateIndex", true);
+const mongoose = require('mongoose');
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 // Load the schemas...
 
 // Data entities; the standard format is:
-const vehicleSch = require("./vehicles_scheme.js");
+const vehicleSch = require('./vehicles_scheme.js');
 // Add others as needed
 
-module.exports = function(mongoDBConnectionString) {
+module.exports = function (mongoDBConnectionString) {
   // Collection properties, which are created upon connection to the database
   let vehicle;
 
   return {
     // connect: function() { ...
     // Add the following function members below the "connect" function member
-    connect: function() {
-      return new Promise(function(resolve, reject) {
+    connect: function () {
+      return new Promise(function (resolve, reject) {
         let db = mongoose.createConnection(mongoDBConnectionString, {
           useNewUrlParser: true,
-          useUnifiedTopology: true
+          useUnifiedTopology: true,
         });
-        console.log(mongoDBConnectionString);
-        db.on("error", error => {
+        db.on('error', (error) => {
           reject(error);
         });
 
-        db.once("open", () => {
-          vehicle = db.model("vehicles", vehicleSch, "vehicles");
+        db.once('open', () => {
+          vehicle = db.model('vehicles', vehicleSch, 'vehicles');
           resolve();
         });
       });
@@ -39,28 +38,28 @@ module.exports = function(mongoDBConnectionString) {
 
     // ############################################################
     // vehicle requests
-    vehicleGetAll: function() {
-      return new Promise(function(resolve, reject) {
+    vehicleGetAll: function () {
+      return new Promise(function (resolve, reject) {
         // Fetch all documents
         vehicle
           .find()
           .sort({
-            car_Make: "asc"
+            car_Make: 'asc',
           })
           .exec((error, items) => {
             if (error) {
               // Query error
               return reject(error.message);
             }
-            console.log(items);
+            // console.log(items);
             // Found, a collection will be returned
             return resolve(items);
           });
       });
     },
 
-    vehicleGetById: function(itemId) {
-      return new Promise(function(resolve, reject) {
+    vehicleGetById: function (itemId) {
+      return new Promise(function (resolve, reject) {
         // Find one specific document
         vehicle.findById(itemId, (error, item) => {
           if (error) {
@@ -72,13 +71,13 @@ module.exports = function(mongoDBConnectionString) {
             // Found, one object will be returned
             return resolve(item);
           } else {
-            return reject("Not found");
+            return reject('Not found');
           }
         });
       });
     },
-    vehicleAdd: function(newItem) {
-      return new Promise(function(resolve, reject) {
+    vehicleAdd: function (newItem) {
+      return new Promise(function (resolve, reject) {
         vehicle.create(newItem, (error, item) => {
           if (error) {
             // Cannot add item
@@ -90,8 +89,8 @@ module.exports = function(mongoDBConnectionString) {
       });
     },
 
-    vehicleEdit: function(id, newItem) {
-      return new Promise(function(resolve, reject) {
+    vehicleEdit: function (id, newItem) {
+      return new Promise(function (resolve, reject) {
         vehicle.findByIdAndUpdate(id, newItem, { new: true }, (error, item) => {
           if (error) {
             // Cannot edit item
@@ -101,15 +100,15 @@ module.exports = function(mongoDBConnectionString) {
             // Edited object will be returned
             return resolve(item);
           } else {
-            return reject("Not found");
+            return reject('Not found');
           }
         });
       });
     },
 
-    vehicleDelete: function(itemId) {
-      return new Promise(function(resolve, reject) {
-        vehicle.findByIdAndRemove(itemId, error => {
+    vehicleDelete: function (itemId) {
+      return new Promise(function (resolve, reject) {
+        vehicle.findByIdAndRemove(itemId, (error) => {
           if (error) {
             // Cannot delete item
             return reject(error.message);
@@ -118,6 +117,6 @@ module.exports = function(mongoDBConnectionString) {
           return resolve();
         });
       });
-    }
+    },
   }; // return
 }; // module.exports
